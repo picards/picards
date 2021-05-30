@@ -34,7 +34,7 @@ def index():
     setLoaded()
     setPayload(load if loaded < 2 else '')
     sawo = {
-        "auth_key":"cdf3f6a8-b776-43f7-85f3-4d898a7a0779",
+        "auth_key":"34b10c22-1add-4f46-90fa-8b28dbe38d83",
         "to":"login",
         "identifier":"email"
     }

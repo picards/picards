@@ -22,26 +22,32 @@ def setLoaded(reset=False):
         loaded += 1
 
 @app.route('/')
-def home():
+def landing():
     return render_template("landing.html")
 
-@app.route('/add-cards')
-def add_cards():
+@app.route('/addcards')
+def addcards():
     return render_template("add_cards.html")
 
-@app.route('/index')
-def index():
+@app.route('/home')
+def home():
+    return render_template("index.html")
+
+@app.route('/0/<name>')
+def open_page(name):
+    if load != '':
+        return redirect(url_for(name))
     setLoaded()
     setPayload(load if loaded < 2 else '')
     sawo = {
-        "auth_key":"cdf3f6a8-b776-43f7-85f3-4d898a7a0779",
-        "to":"login",
+        "auth_key":"34b10c22-1add-4f46-90fa-8b28dbe38d83",
+        "to":("login/"+name),
         "identifier":"email"
     }
-    return render_template("index.html", sawo=sawo, load=load)
+    return render_template("sawo.html", sawo=sawo, load=load)
 
-@app.route("/login", methods=["POST","GET"])
-def login():
+@app.route("/login/<name>", methods=["POST","GET"])
+def login(name):
     payload = json.loads(request.data)["payload"]
     setLoaded(True)
     setPayload(payload)

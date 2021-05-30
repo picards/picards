@@ -43,11 +43,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>                        
           </button>
-          <a class="navbar-brand" href="#">Logo</a>
+          <a class="navbar-brand" href="/">StudyPi</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li class="active"><a href="/0/home">Home</a></li>
             
             <li><a href="#">View my flashcards</a></li>
             <li><a href="#">Relax space</a></li>
@@ -59,25 +59,7 @@
       </div>
     </nav>
     
-      <div class="container d-flex justify-content-center align-middle">
-        <div class="row">
-          <div class="col-12 p-4 h2 text-center text-Success">
-          <h1 class="fs-1 fw-bold text-primary" style="font-family: monospace;">SAWOPY TEST</h1>
-          </div>
-          {% if load %}
-            <div class="text-center align-items-center text-success"><h1>Test Complete payload recived!</h1></div>
-            <div class="col-12 align-items-center text-center text-info h2">
-              {{load}}
-              {% block contentBlock %}{% endblock %}
-            </div>
-          {% else %}
-            <div class="col-12 d-flex align-items-center justify-content-center">
-              {% include './partials/_sawo.html' %}
-            </div>
-          {% endif %}
-        </div>
-      </div>
-    </div>
+    {% block contentBlock %}{% endblock %}
 
     <script>
       document.getElementById("sawo-container").className += "container d-flex justify-content-center align-middle";

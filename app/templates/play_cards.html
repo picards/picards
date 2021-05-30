@@ -76,13 +76,15 @@
 <div class="container">    
   <div class="row justify-content-center">
     <div class="col-sm-4">
-      <div class="panel panel-primary">
+
+      <div  id="myDiv" style="display:none;" class="panel panel-primary">
         <div class="panel-heading">ANSWER</div>
         <div class="panel-body"> 
         <!--enter a here-->
         	<p> Because it is round </p>
         </div>
       </div>
+      <input type="button" name="answer" value="View Answer" onclick="ShowDiv()" />
     </div>
     
   </div>
@@ -111,6 +113,9 @@ function correctAns() {
 function wrongAns() {
   wrong+=1;
   document.getElementById("wrong").innerHTML = wrong;
+};
+function ShowDiv() {
+    document.getElementById("myDiv").style.display = "";
 };
 </script>
 </body>

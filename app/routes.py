@@ -29,6 +29,18 @@ def landing():
 def addcards():
     return render_template("add_cards.html")
 
+@app.route('/sharecards')
+def sharecards():
+    return render_template("share.html")
+
+@app.route('/viewshared')
+def viewshared():
+    return render_template("add_cards.html")
+
+@app.route('/playcards')
+def playcards():
+    return render_template("play_cards.html")
+
 @app.route('/home')
 def home():
     return render_template("index.html")
@@ -40,7 +52,7 @@ def open_page(name):
     setLoaded()
     setPayload(load if loaded < 2 else '')
     sawo = {
-        "auth_key":"34b10c22-1add-4f46-90fa-8b28dbe38d83",
+        "auth_key":"cdf3f6a8-b776-43f7-85f3-4d898a7a0779",
         "to":("login/"+name),
         "identifier":"email"
     }

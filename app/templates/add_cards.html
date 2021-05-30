@@ -18,8 +18,8 @@
      .jumbotron {
       margin-bottom: 0;
     }
-   	.row.content1 {height: 300px;background-color: blue;}
-   	.row.content2 {height: 300px;background-color: yellow;}
+   	.row.content1 {height: 300px;background-color: #FFFACD;}
+   	.row.content2 {height: 300px;background-color: #FFFACD;}
     /* Add a gray background color and some padding to the footer */
     footer {
       background-color: #f2f2f2;
@@ -62,23 +62,17 @@
 
 <div class="container">    
   <div class="row content1">
-  	<div class="col">
-  		<form>
-  			<label for="qn">Enter your question</label><br>
-  			<input type="text" id="qn" name="qn"><br>
-  			
+  	<div class="col-6">
+  		
+  		<form action="/action_page.php"><!--server name instead of action page-->
+  			<label for="qn">Question:</label>
+  			<input type="text" id="qn" name="qn"><br><br>
+  			<label for="ans">Answer:</label>
+  			<input type="text" id="ans" name="ans"><br><br>
+  			<input type="submit" value="Submit">
 		</form>
-  	</div>    
-    
-  </div>
-  <div class="row content2">
-  <div class = "col">
-  <form>
-  	<label for="ans">Enter the answer:</label><br>
-  	<input type="text" id="ans" name="ans">
-  	<input type="submit" value="Submit">
-  </form>
-  </div>
+		</div>
+		
   </div>
 </div><br><br>
 

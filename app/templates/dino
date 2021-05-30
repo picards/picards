@@ -1,0 +1,504 @@
+import java.awt.*;
+ 
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent; 
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+import javax.swing.SwingUtilities;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import java.net.URL;
+import java.awt.image.*;
+import javax.imageio.*;
+import java.io.*;
+
+class Draw {
+    Graphics g;
+    Draw(Graphics g) {
+        this.g = g;
+    };
+}
+public class dinosaur {
+
+        JFrame frame;
+        DrawPanel drawPanel;
+        JPanel textPanel;
+    JLabel textLabel;
+    Font normalFont = new Font("Times New Roman", Font.PLAIN, 28);
+    Font burnFont;
+
+    public static void main(String... args) {
+        new dinosaur().go();
+        
+        
+    }
+        public dinosaur(){
+            /*
+             * burnFont = Font.createFont(Font.TRUETYPE_FONT, new File("burnstown_damn.ttf")).deriveFont(30f);    
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("burnstown_damn.ttf")));    
+            
+             */
+        
+
+
+        
+    }
+
+    private void go() {
+        frame = new JFrame("Test");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(515, 539));
+        frame.setBackground(Color.BLACK);
+        frame.pack();
+        drawPanel = new DrawPanel();
+
+        frame.getContentPane().add(BorderLayout.CENTER, drawPanel);
+
+        frame.setResizable(true);
+        frame.setLocationByPlatform(true);
+
+        frame.setVisible(true);
+        
+    }
+    
+    //Global Variables go here
+    //Your global variables go here
+    public int mouseX = 0;
+    public int mouseY = 0;
+    private int max=800;
+    private int min=650;
+    private int max1=800;
+    private int min1=700;
+    private int x1=(int)Math.floor(Math.random()*(max-min+1)+min);;
+    private int y1=340;
+    private int x2=(int)Math.floor(Math.random()*(max1-min1+1)+min1);;
+    private int y2=340;
+    private int x=150;
+    private int y=340;
+    private int a=300;
+    private int b=80;
+    private int score=0;
+    private boolean game= true;
+    private int speedY=18;
+    private int speedX1=5;
+    private int speedX2=6;
+    private int speedX3=7;
+    private int level = 0;
+    public boolean jumpUp=false;
+    public boolean thirdBlock = false;
+    public boolean secondBlock = false;
+    
+    //booleans for user input
+    public boolean UpButton = false;
+    public boolean DownButton = false;
+    public boolean RightButton = false;
+    public boolean LeftButton = false;
+    public boolean SpaceButton = false;
+    public boolean mouseClicked = false;
+    
+    
+
+    
+
+    class DrawPanel extends JPanel {
+        private static final long serialVersionUID = 1L;     
+        
+        
+        
+        public DrawPanel() {
+            KeyListener listener = new KeyListener() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+                }
+
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    //System.out.println("keyPressed=" + KeyEvent.getKeyText(e.getKeyCode()));
+                    int key = e.getKeyCode();
+                    
+                    if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W ) {
+                        UpButton = true;
+                        DownButton = false;
+                    } else if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
+                        UpButton = false;
+                        DownButton = true;
+                    }
+                    if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
+                        RightButton = true;
+                        LeftButton = false;
+                    } else if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
+                        RightButton = false;
+                        LeftButton = true;
+                    }
+                    if (key == KeyEvent.VK_SPACE) {
+                        SpaceButton = true;
+                    }
+                }
+
+                @Override
+                public void keyReleased(KeyEvent e) {
+                    int key = e.getKeyCode();
+                    
+                    if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
+                        UpButton = false;
+                    } else if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
+                        DownButton = false;
+                    }
+                    if (key == KeyEvent.VK_RIGHT|| key == KeyEvent.VK_D) {
+                        RightButton = false;
+                    } else if (key == KeyEvent.VK_LEFT|| key == KeyEvent.VK_A) {
+                        LeftButton = false;
+                    }
+                    if (key == KeyEvent.VK_SPACE) {
+                        SpaceButton = false;
+                    }
+                }
+            };
+            addKeyListener(listener);
+            setFocusable(true);
+            
+            
+            MouseListener mListener = new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    game=true;
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    mouseClicked = true;
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                     mouseClicked = false;
+                }
+                
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                     
+                }
+                
+                @Override
+                public void mouseExited(MouseEvent e) {
+                     
+                }
+ 
+            };
+            addMouseListener(mListener);
+            setFocusable(true);
+        }
+        
+        
+        
+        public void paintComponent(Graphics g) {
+            
+            
+            //This code redraw the scene.  Don't change this
+            BufferedImage tree = null;
+            BufferedImage dino = null;
+            BufferedImage cloud = null;
+            try {
+                File file1 = new File("tree.png");
+                File file2 = new File("dino.png");
+                File file3 = new File("cloud.png");
+                tree = ImageIO.read(file1);
+                dino = ImageIO.read(file2);
+                cloud = ImageIO.read(file3);
+            } 
+            catch (IOException e){
+                g.drawString("Problem reading the file", 100, 100);
+            }
+
+            try {
+                Thread.sleep(10);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            frame.repaint();
+            //This code finds the mouse location
+            Point p = MouseInfo.getPointerInfo().getLocation();
+            SwingUtilities.convertPointFromScreen(p, frame);
+            mouseX = p.x-5;
+            mouseY = p.y-30;
+            
+            //Your code goes here
+            
+            g.setColor(Color.WHITE);
+            g.drawLine(0,400,500,400);
+            
+            if (game){
+                if (level==0){
+                    g.setFont(new Font("Burnstown Dam",Font.PLAIN, 40));
+                    String title = "Dinosaur game";
+                    g.drawString(title,150 , 100);
+                    g.setFont(new Font("Burnstown Dam",Font.PLAIN, 20));
+                    g.drawString("Click spacebar to continue",150,150);
+                    
+                    if (SpaceButton==true){
+                        //display text and animation
+                        level = 1;
+                        SpaceButton=false;
+                    }
+                }
+                if (level!=0){
+                    g.drawImage(dino, x, y, 60, 60, null);
+                    //g.fillRect(x,y,60,60);
+                    if (jumpUp){
+                        y-=speedY;
+                        speedY-=1;
+                        if (y>=340){
+                            speedY=18;
+                            jumpUp=false;
+                            
+                        }
+                    }
+                    
+                    g.drawImage(cloud, a, b, 50, 30, null);
+                    g.drawImage(cloud, a+60, b+20, 50, 30, null);
+                    g.drawImage(cloud, a-30, b+50, 50, 30, null);
+                    g.drawImage(cloud, a-200, b+60, 50, 30, null);
+                    a-=1;
+                    if (a<=-50){
+                        a=(int)Math.floor(Math.random()*(600-300+1)+300);
+                        b=(int)Math.floor(Math.random()*(120-80+1)+80);
+                    }
+                    
+                    if (secondBlock){
+                        g.setColor(Color.YELLOW);
+                        g.drawImage(tree, x2, y2, 50, 60, null);
+                        x2-=speedX2;
+                        if (x2<=0){
+                            
+                            x2=(int)Math.floor(Math.random()*(max1-min1+1)+min1);
+                            
+                            score++;
+                        }
+                        
+                        
+                    }
+                    
+                    if (thirdBlock){
+                        
+                        g.setColor(Color.YELLOW);
+                        g.drawImage(tree, x2, y2, 50, 60, null);
+                        x2-=speedX3;
+                        if (x2<=0){
+                            
+                            x2=(int)Math.floor(Math.random()*(900-600+1)+min1)+60;
+                            
+                            score++;
+                        }
+                        if (blocksCollided(g,x,y,x2,y2)){
+                            game=false;
+                        }
+                        
+                    }
+                    if (Math.abs(x2-x1)<=200){
+                        x2=(int)Math.floor(Math.random()*(900-600+1)+min1)+60;
+                    }
+                }
+                
+                
+                if (level==1){
+                    
+                    //obstacle
+                    g.drawImage(tree, x1, y1, 50, 60, null);
+                    x1-=speedX1;
+                    if (x1<=0){
+                        x1=(int)Math.floor(Math.random()*(800-600+1)+600);
+                        score++;
+                    }
+                    if (blocksCollided(g,x,y,x1,y1)){
+                        game=false;
+                    }
+                    if (score==1){
+                        level=2;
+                    }
+                    
+                    }
+                if (level==2){
+                    g.setColor(Color.WHITE);
+                    g.drawImage(tree, x1, y1, 50, 60, null);
+                    x1-=speedX2;
+                    if (blocksCollided(g,x,y,x1,y1)){
+                        game=false;
+                    }
+                    if (x1<=0){
+                        x1=(int)Math.floor(Math.random()*(800-600+1)+600);
+                        score++;
+                    }
+                    
+                    if (x1<=340){
+                        secondBlock=true;
+                        
+                        if (blocksCollided(g,x,y,x2,y2)){
+                            game=false;
+                        }
+                    }
+                    if (score==10){
+                        level=3;
+                    }
+                }
+                
+                if (level==3){
+                    secondBlock=false;
+                    
+                    g.setColor(Color.WHITE);
+                    g.drawImage(tree, x1, y1, 50, 60, null);
+                    //
+                    x1-=speedX3;
+                    if (blocksCollided(g,x,y,x1,y1)){
+                        game=false;
+                    }
+                    if (x1<=0){
+                        x1=(int)Math.floor(Math.random()*(max-min+1)+min);
+                        score++;
+                        g.drawImage(tree, x1, y1, 50, 60, null);
+                        x1-=speedX3;
+                    }
+                    if (x1<=340){
+                        thirdBlock=true;
+                    }
+                    if (score==15){
+                        level=4;
+                        
+                    }
+                
+                }
+                if (level==4){
+                    speedX3=8;
+                    
+                    g.setColor(Color.WHITE);
+                    g.drawImage(tree, x1, y1, 50, 60, null);
+                    //
+                    x1-=speedX3;
+                    if (blocksCollided(g,x,y,x1,y1)){
+                        game=false;
+                    }
+                    if (x1<=0){
+                        x1=(int)Math.floor(Math.random()*(max-min+1)+min);
+                        score++;
+                        g.drawImage(tree, x1, y1, 50, 60, null);
+                        x1-=speedX3;
+                    }
+                    if (x1<=340){
+                        thirdBlock=true;
+                    }
+                }
+            }
+                if (game==false){
+                g.setFont(new Font("Burnstown Dam",Font.PLAIN, 20));
+                g.drawString("You hit a tree!",200,200);
+                g.setFont(new Font("TimesNewRoman",Font.PLAIN, 10));
+                g.drawString("Score: "+score,240,260);
+                g.drawString("Click anywhere to continue",210,300);
+                if (mouseClicked){
+                    level=0;
+                    score=0;
+                    x=150;
+                    x1=(int)Math.floor(Math.random()*(max-min+1)+min);
+                    x2=(int)Math.floor(Math.random()*(max-min+1)+min);
+                    game=true;
+                    secondBlock=false;
+                    thirdBlock=false;
+                }
+            }
+            
+            
+            //This section displays indicators to show when buttons are pushed
+            g.setColor(Color.GRAY);
+            g.fillRect(40,420,20,20);
+            g.fillRect(40,460,20,20);
+            g.fillRect(20,440,20,20);
+            g.fillRect(60,440,20,20);
+            g.fillRect(20,485,60,10);
+            g.fillOval(100,480,15,15);
+            g.setColor(Color.YELLOW);
+            if(UpButton){
+                g.fillRect(40,420,20,20);
+                jumpUp=true;
+            }
+            if(DownButton)
+                g.fillRect(40,460,20,20);
+                
+            if(LeftButton)
+                g.fillRect(20,440,20,20);
+                
+            if(RightButton){
+                g.fillRect(60,440,20,20);
+                if (level==1){
+                    x1-=(speedX1+1);
+                }
+                if (level==2){
+                    x1-=(speedX2+1);
+                    x2-=(speedX2+1);
+                }
+                if (level==3){
+                    x1-=(speedX3+1);
+                    x2-=(speedX3+1);
+                }
+            }
+                
+            if(SpaceButton)
+                g.fillRect(20,485,60,10);
+            if(mouseClicked)
+                g.fillOval(100,480,15,15);
+                
+            g.setFont(new Font("TimesNewRoman",Font.PLAIN, 16));
+            
+            String display2 = "score: "+score;
+            String display3 = "level: "+level;
+            
+            g.drawString(display2,250 , 470);
+            
+            
+            
+            g.drawString(display3,250 , 485);
+            
+            
+            //drawGrid(g);
+            
+        }
+        
+    }
+    
+    public static void drawGrid(Graphics g)
+    {
+        g.setColor(new Color(255,255,255, 50));
+            for (int x = 0; x<=500; x+= 20)
+                g.drawLine(x, 0, x, 500);
+            for (int y = 0; y<=500; y+= 20)
+                g.drawLine(0, y, 500, y); 
+    }
+    
+    public static boolean blocksCollided(Graphics g, int x, int y, int x1, int y1){
+        if (Math.abs(x1-x)<=50 && y1==340 && y==340){
+            return true;
+        }
+        if (Math.abs(y1-y)<=60 && Math.abs(x1-x)<=50){
+            return true;
+        }
+        
+        else{
+            return false;
+        }
+    }
+        
+    
+    
+}
+
+    
+

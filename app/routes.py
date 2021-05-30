@@ -29,7 +29,7 @@ def index():
     sawo = {
         "auth_key":"cdf3f6a8-b776-43f7-85f3-4d898a7a0779",
         "to":"login",
-        "identifier":"phone_number_sms"
+        "identifier":"email"
     }
     return render_template("index.html", sawo=sawo, load=load)
 

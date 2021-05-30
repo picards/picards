@@ -4,5 +4,17 @@ import requests
 from app import app
 
 @app.route('/')
-def home():
-    return render_template('index.html')
+@app.route('/index')
+def index():
+    user = {'username': 'User'}
+    posts = [
+        {
+            'author': {'username': 'Frank'},
+            'body': 'hack'
+        },
+        {
+            'author': {'username': 'Sam'},
+            'body': 'hack 2'
+        }
+    ]
+    return render_template('index.html', user=user, posts=posts)

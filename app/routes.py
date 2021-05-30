@@ -22,6 +22,13 @@ def setLoaded(reset=False):
         loaded += 1
 
 @app.route('/')
+def home():
+    return render_template("landing.html")
+
+@app.route('/add-cards')
+def add_cards():
+    return render_template("add_cards.html")
+
 @app.route('/index')
 def index():
     setLoaded()

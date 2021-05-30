@@ -18,7 +18,8 @@
      .jumbotron {
       margin-bottom: 0;
     }
-   
+   	.row.content1 {height: 300px;background-color: blue;}
+   	.row.content2 {height: 300px;background-color: yellow;}
     /* Add a gray background color and some padding to the footer */
     footer {
       background-color: #f2f2f2;
@@ -60,41 +61,24 @@
 </nav>
 
 <div class="container">    
-  <div class="row">
-    <div class="col-sm-4 offset-4">
-      <div class="panel panel-primary">
-        <div class="panel-heading">Add flashcards</div>
-        <div class="panel-body"><button class="btn btn-primary"><img src="plus_sign.png" class="img-responsive" style="width:100%" alt="Image"></button></div>
-        
-      </div>
-    </div>
-    <div class="col-sm-4 "> 
-      <div class="panel panel-primary">
-        <div class="panel-heading">Import text file</div>
-        <div class="panel-body"><button class="btn btn-primary"><img src="plus_sign.png" class="img-responsive" style="width:100%" alt="Image"></button></div>
-      </div>
-    </div>
+  <div class="row content1">
+  	<div class="col">
+  		<form>
+  			<label for="qn">Enter your question</label><br>
+  			<input type="text" id="qn" name="qn"><br>
+  			
+		</form>
+  	</div>    
     
-    </div>
   </div>
-</div><br>
-
-<div class="container">    
-  <div class="row">
-    <div class="col-sm-4 offset-4">
-      <div class="panel panel-primary">
-        <div class="panel-heading">Share flashcards</div>
-        <div class="panel-body"><button class="btn btn-primary"><img src="plus_sign.png" class="img-responsive" style="width:100%" alt="Image"></button></div>
-      </div>
-    </div>
-    <div class="col-sm-4 offset-4"> 
-      <div class="panel panel-primary">
-        <div class="panel-heading">Find other flashcards</div>
-        <div class="panel-body"><button class="btn btn-primary"><img src="plus_sign.png" class="img-responsive" style="width:100%" alt="Image"></button></div>
-      </div>
-    </div>
-    
-    </div>
+  <div class="row content2">
+  <div class = "col">
+  <form>
+  	<label for="ans">Enter the answer:</label><br>
+  	<input type="text" id="ans" name="ans">
+  	<input type="submit" value="Submit">
+  </form>
+  </div>
   </div>
 </div><br><br>
 

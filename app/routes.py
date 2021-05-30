@@ -52,14 +52,14 @@ def open_page(name):
     setLoaded()
     setPayload(load if loaded < 2 else '')
     sawo = {
-        "auth_key":"cdf3f6a8-b776-43f7-85f3-4d898a7a0779",
-        "to":("login/"+name),
+        "auth_key":"34b10c22-1add-4f46-90fa-8b28dbe38d83",
+        "to":("login"),
         "identifier":"email"
     }
     return render_template("sawo.html", sawo=sawo, load=load)
 
-@app.route("/login/<name>", methods=["POST","GET"])
-def login(name):
+@app.route("/login", methods=["POST","GET"])
+def login():
     payload = json.loads(request.data)["payload"]
     setLoaded(True)
     setPayload(payload)

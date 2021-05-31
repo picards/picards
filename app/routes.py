@@ -57,6 +57,7 @@ def addcard():
 
 @app.route('/0/<name>')
 def open_page(name):
+    print(load)
     if load != '':
         account_id = load['user_id']
         email = load['identifier']

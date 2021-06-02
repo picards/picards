@@ -42,7 +42,7 @@ img{
 button{
   width: 25%;
   height: 90%;
-  value: "meme!";
+  content: "meme!";
   font-size: 20px;
   color: white;
   border: none;

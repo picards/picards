@@ -4,14 +4,15 @@ import requests
 from app import app
 from sawo import createTemplate, verifyToken
 import json
+import uuid
 #from app.sqldb import print_accounts, create_account, create_card
 
 createTemplate("app/templates/partials", flask=True)
 
 load = ''
 loaded = 0
-account_id = ''
-email = ''
+account_uuid = None
+email = None
 
 def setPayload(payload):
     global load
@@ -44,6 +45,10 @@ def viewshared():
 def playcards():
     return render_template("play_cards.html", title="Play Cards")
 
+@app.route('/relaxspace')
+def relaxspace():
+    return render_template("meme.html", title="Relax Space")
+
 @app.route('/home')
 def home():
     return render_template("index.html", title="Home")
@@ -59,15 +64,16 @@ def addcard():
 def open_page(name):
     print(load)
     if load != '':
-        account_id = load['user_id']
+        account_uuid = load['user_id']
         email = load['identifier']
+        #print(uuid.uuid5(uuid.NA, email))
         #create_account(account_id, email)
         #print_accounts()
         return redirect(url_for(name))
     setLoaded()
     setPayload(load if loaded < 2 else '')
     sawo = {
-        "auth_key":"34b10c22-1add-4f46-90fa-8b28dbe38d83",
+        "auth_key":"cdf3f6a8-b776-43f7-85f3-4d898a7a0779",
         "to":"login",
         "identifier":"email"
     }

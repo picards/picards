@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <title> Random Image </title>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <link rel="stylesheet" href="meme.css"/>
-    <script src="meme.js"></script>
-  </head>
+{% extends "base.html" %}
+
+{% block contentBlock %}
+
+<div>
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/meme.css') }}"/>
+  <script src="{{ url_for('static', filename='js/meme.js') }}"></script>
   <body>
     <div id="container">
       <div id="inner_container">
@@ -16,4 +16,6 @@
       </div>
     </div>
   </body>
-</html>
+</div><br><br>
+
+{% endblock %}

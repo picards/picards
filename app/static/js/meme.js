@@ -15,8 +15,6 @@ image_array = [
   '13.jpg',
   '14.jpg',
   '15.jpg',
-  
-
 ]
 
 function get_random_image(){
@@ -27,5 +25,5 @@ function get_random_image(){
   selected_image = image_array[random_index]
 
   // Display the image
-  document.getElementById('image_shower').src = `./images/${selected_image}`
+  document.getElementById('image_shower').src = `app/static/images/${selected_image}`
 }

@@ -1,5 +1,7 @@
 from flask import Flask
-from app.config import DevConfig, ProdConfig
+import sys
+sys.path.insert(1, '../../secrets')
+from config import DevConfig, ProdConfig
 conf = DevConfig
 
 app = Flask(__name__)

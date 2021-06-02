@@ -5,7 +5,8 @@ from app import app
 from sawo import createTemplate, verifyToken
 import json
 import uuid
-#from app.sqldb import print_accounts, create_account, create_card
+from app import conf
+from app.sqldb import create_account
 
 createTemplate("app/templates/partials", flask=True)
 
@@ -57,25 +58,21 @@ def home():
 def addcard():
     question = request.form['qn']
     answer = request.form['ans']
-    #create_card(account_id, question, answer)
     return redirect('/0/addcards')
 
 @app.route('/0/<name>')
 def open_page(name):
-    print(load)
     if load != '':
-        account_uuid = load['user_id']
-        email = load['identifier']
-        #print(uuid.uuid5(uuid.NA, email))
-        #create_account(account_id, email)
-        #print_accounts()
+        account_id = str(load['user_id'])
+        email = str(load['identifier'])
+        create_account(account_id, email)
         return redirect(url_for(name))
     setLoaded()
     setPayload(load if loaded < 2 else '')
     sawo = {
-        "auth_key":"cdf3f6a8-b776-43f7-85f3-4d898a7a0779",
-        "to":"login",
-        "identifier":"email"
+        'auth_key' : conf.SAWO_API_KEY,
+        'to' : 'login',
+        'identifier' : 'email'
     }
     return render_template("sawo.html", sawo=sawo, load=load, title="Login")
 

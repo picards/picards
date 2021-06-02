@@ -1,6 +1,15 @@
 class Config:
     APP_NAME = 'studypi'
 
+    DBNAME = 'studypi'
+    USER = 'michael'
+    PASSWORD = '3H$xlwl1riDrupan4p7#'
+    SSLMODE = 'verify-full'
+    SSLROOTCERT = 'app/ca.crt'
+    PORT = 26257
+    HOST = 'free-tier.gcp-us-central1.cockroachlabs.cloud'
+    OPTIONS = '--cluster=pure-bull-2141'
+
 
 class DevConfig(Config):
     DEBUG = True
@@ -12,15 +21,3 @@ class ProdConfig(Config):
     DEBUG = False
 
     SAWO_API_KEY = '34b10c22-1add-4f46-90fa-8b28dbe38d83'
-
-
-COCKROACH_CONN = {
-    'dbname': 'studypi',
-    'user': 'michael',
-    'password': 'xlwl1riDrupan4p7#',
-    'sslmode': 'verify-full',
-    'sslrootcert': 'app/ca.crt',
-    'port': 26257,
-    'host': 'free-tier.gcp-us-central1.cockroachlabs.cloud',
-    'options': '--cluster=pure-bull-2141'
-}
